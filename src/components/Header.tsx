@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { Menu, Search } from 'lucide-react';
+import { Menu, Search, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 
@@ -37,9 +36,18 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, sidebarOpen }) => {
           <Menu size={24} />
         </button>
 
-        <Link to="/" className="text-foreground font-medium text-lg transition-opacity duration-200 hover:opacity-80">
-          Book Reader
-        </Link>
+        <div className="flex items-center space-x-6">
+          <Link to="/" className="text-foreground font-medium text-lg transition-opacity duration-200 hover:opacity-80 flex items-center">
+            <BookOpen className="mr-2 h-5 w-5" />
+            Book Reader
+          </Link>
+          <Link 
+            to="/blog" 
+            className="text-foreground/80 hover:text-foreground transition-colors duration-200"
+          >
+            Blog
+          </Link>
+        </div>
       </div>
 
       <div className="flex items-center space-x-2">
