@@ -1,15 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, BookOpen } from 'lucide-react';
+import { ArrowLeft, BookOpen, FileText } from 'lucide-react';
 import books from '@/data/books';
 import BookReader from '@/components/BookReader';
+import PdfReader from '@/components/PdfReader';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 const BookPage = () => {
   const { id } = useParams<{ id: string }>();
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const [viewMode, setViewMode] = useState<'text' | 'pdf'>('text');
 
   const book = books.find(b => b.id === id);
   
@@ -53,7 +56,7 @@ const BookPage = () => {
       "min-h-screen transition-opacity duration-500",
       mounted ? "opacity-100" : "opacity-0"
     )}>
-      <div className="fixed top-0 left-0 z-50 p-4">
+      <div className="fixed top-0 left-0 z-50 p-4 flex items-center gap-2">
         <Link 
           to="/"
           className="inline-flex items-center rounded-full p-2 bg-background/80 backdrop-blur-sm shadow-sm hover:bg-background transition-colors duration-200"
@@ -61,6 +64,29 @@ const BookPage = () => {
         >
           <ArrowLeft size={20} />
         </Link>
+        
+        {book.pdfUrl && (
+          <div className="flex items-center bg-background/80 backdrop-blur-sm rounded-full p-1">
+            <Button
+              variant={viewMode === 'text' ? 'default' : 'ghost'}
+              size="sm"
+              className="rounded-full text-xs px-3 h-8"
+              onClick={() => setViewMode('text')}
+            >
+              <BookOpen size={16} className="mr-1" />
+              Text
+            </Button>
+            <Button
+              variant={viewMode === 'pdf' ? 'default' : 'ghost'}
+              size="sm"
+              className="rounded-full text-xs px-3 h-8"
+              onClick={() => setViewMode('pdf')}
+            >
+              <FileText size={16} className="mr-1" />
+              PDF
+            </Button>
+          </div>
+        )}
       </div>
       
       {loading ? (
@@ -71,7 +97,13 @@ const BookPage = () => {
           </div>
         </div>
       ) : (
-        <BookReader book={book} />
+        <>
+          {viewMode === 'pdf' && book.pdfUrl ? (
+            <PdfReader book={book} />
+          ) : (
+            <BookReader book={book} />
+          )}
+        </>
       )}
     </div>
   );

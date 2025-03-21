@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -12,6 +11,7 @@ export interface Book {
   description: string;
   pages: number;
   category: string;
+  pdfUrl?: string; // Optional PDF URL for books that have PDF versions
 }
 
 interface BookCardProps {
