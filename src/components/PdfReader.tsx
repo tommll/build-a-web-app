@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Download, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Book } from './BookCard';
@@ -12,30 +12,44 @@ interface PdfReaderProps {
 const PdfReader: React.FC<PdfReaderProps> = ({ book }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [totalPages, setTotalPages] = useState(book.pages || 1);
+  const [totalPages, setTotalPages] = useState(0);
 
-  // This will be replaced with actual PDF rendering once a URL is provided
-  const handleIframeLoad = () => {
+  useEffect(() => {
+    // Set total pages based on pdfUrls length or book.pages
+    if (book.pdfUrls && book.pdfUrls.length > 0) {
+      setTotalPages(book.pdfUrls.length);
+    } else {
+      setTotalPages(book.pages || 1);
+    }
+  }, [book]);
+
+  const handleImageLoad = () => {
     setIsLoading(false);
   };
 
   const goToNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(prev => prev + 1);
+      setIsLoading(true);
     }
   };
 
   const goToPrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(prev => prev - 1);
+      setIsLoading(true);
     }
   };
+
+  // Current page URL (1-based index, but array is 0-based)
+  const currentPageUrl = book.pdfUrls && book.pdfUrls.length > 0 
+    ? book.pdfUrls[currentPage - 1] 
+    : null;
 
   return (
     <div className="w-full bg-reader-background min-h-screen flex flex-col">
       <div className="flex-1 flex justify-center items-center py-8 px-4">
         <div className="relative max-w-4xl w-full">
-          {/* PDF placeholder - will be replaced with actual PDF viewer */}
           <div className="relative bg-white rounded-sm mx-auto max-w-3xl shadow-lg overflow-hidden">
             {isLoading && (
               <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-sm z-10">
@@ -43,12 +57,12 @@ const PdfReader: React.FC<PdfReaderProps> = ({ book }) => {
               </div>
             )}
             
-            {book.pdfUrl ? (
-              <iframe 
-                src={`${book.pdfUrl}#page=${currentPage}`}
-                className="w-full h-[80vh]"
-                onLoad={handleIframeLoad}
-                title={`${book.title} PDF`}
+            {currentPageUrl ? (
+              <img 
+                src={currentPageUrl}
+                alt={`Page ${currentPage} of ${book.title}`}
+                className="w-full h-[80vh] object-contain"
+                onLoad={handleImageLoad}
               />
             ) : (
               <div className="flex flex-col items-center justify-center h-[80vh] p-6 text-center">
@@ -64,7 +78,7 @@ const PdfReader: React.FC<PdfReaderProps> = ({ book }) => {
           <div className="flex justify-between mt-8 items-center px-4">
             <Button
               onClick={goToPrevPage}
-              disabled={currentPage <= 1 || !book.pdfUrl}
+              disabled={currentPage <= 1 || !book.pdfUrls || book.pdfUrls.length === 0}
               variant="outline"
               className="rounded-full p-2 h-10 w-10"
               aria-label="Previous page"
@@ -77,22 +91,22 @@ const PdfReader: React.FC<PdfReaderProps> = ({ book }) => {
                 Page {currentPage} of {totalPages}
               </div>
               
-              {book.pdfUrl && (
+              {book.pdfUrls && book.pdfUrls.length > 0 && (
                 <Button
                   variant="outline"
                   size="sm"
                   className="gap-2"
-                  onClick={() => window.open(book.pdfUrl, '_blank')}
+                  onClick={() => window.open(book.pdfUrls?.[currentPage - 1], '_blank')}
                 >
                   <Download size={16} />
-                  Download PDF
+                  Download Image
                 </Button>
               )}
             </div>
             
             <Button
               onClick={goToNextPage}
-              disabled={currentPage >= totalPages || !book.pdfUrl}
+              disabled={currentPage >= totalPages || !book.pdfUrls || book.pdfUrls.length === 0}
               variant="outline"
               className="rounded-full p-2 h-10 w-10"
               aria-label="Next page"

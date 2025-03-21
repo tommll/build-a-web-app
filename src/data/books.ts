@@ -1,3 +1,4 @@
+
 import { Book } from '@/components/BookCard';
 
 // Sample book data
@@ -10,7 +11,7 @@ const books: Book[] = [
     coverImage: "/lovable-uploads/455bae8c-13d4-4dd2-b7c5-a62b719067dd.png",
     pages: 423,
     category: "fiction",
-    pdfUrl: undefined // PDF URL will be provided later
+    pdfUrls: undefined // JPG URLs will be provided later
   },
   {
     id: "starter-2",
@@ -20,7 +21,7 @@ const books: Book[] = [
     coverImage: "/lovable-uploads/6e011b1d-9107-434d-9805-dd0a92d22ca8.png",
     pages: 387,
     category: "fiction",
-    pdfUrl: undefined // PDF URL will be provided later
+    pdfUrls: undefined // JPG URLs will be provided later
   },
   {
     id: "movers-1",
@@ -30,7 +31,7 @@ const books: Book[] = [
     coverImage: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800",
     pages: 356,
     category: "fiction",
-    pdfUrl: undefined
+    pdfUrls: undefined
   },
   {
     id: "flyers-1",
@@ -40,7 +41,7 @@ const books: Book[] = [
     coverImage: "https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=800",
     pages: 412,
     category: "fiction",
-    pdfUrl: undefined
+    pdfUrls: undefined
   },
   {
     id: "prof-english",
@@ -50,7 +51,7 @@ const books: Book[] = [
     coverImage: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=800",
     pages: 298,
     category: "nonfiction",
-    pdfUrl: undefined
+    pdfUrls: undefined
   },
   {
     id: "advanced-grammar",
@@ -60,7 +61,7 @@ const books: Book[] = [
     coverImage: "https://images.unsplash.com/photo-1553729459-efe14ef6055d?q=80&w=800",
     pages: 376,
     category: "nonfiction",
-    pdfUrl: undefined
+    pdfUrls: undefined
   }
 ];
 

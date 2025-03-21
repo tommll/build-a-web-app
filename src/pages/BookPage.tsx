@@ -51,6 +51,8 @@ const BookPage = () => {
     );
   }
 
+  const hasPdfPages = book.pdfUrls && book.pdfUrls.length > 0;
+
   return (
     <div className={cn(
       "min-h-screen transition-opacity duration-500",
@@ -65,7 +67,7 @@ const BookPage = () => {
           <ArrowLeft size={20} />
         </Link>
         
-        {book.pdfUrl && (
+        {hasPdfPages && (
           <div className="flex items-center bg-background/80 backdrop-blur-sm rounded-full p-1">
             <Button
               variant={viewMode === 'text' ? 'default' : 'ghost'}
@@ -98,7 +100,7 @@ const BookPage = () => {
         </div>
       ) : (
         <>
-          {viewMode === 'pdf' && book.pdfUrl ? (
+          {viewMode === 'pdf' && hasPdfPages ? (
             <PdfReader book={book} />
           ) : (
             <BookReader book={book} />

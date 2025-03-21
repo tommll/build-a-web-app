@@ -11,7 +11,7 @@ export interface Book {
   description: string;
   pages: number;
   category: string;
-  pdfUrl?: string; // Optional PDF URL for books that have PDF versions
+  pdfUrls?: string[]; // Array of URLs to jpg files representing PDF pages
 }
 
 interface BookCardProps {
