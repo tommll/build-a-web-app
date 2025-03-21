@@ -11,6 +11,7 @@ const books: Book[] = [
     coverImage: "/lovable-uploads/455bae8c-13d4-4dd2-b7c5-a62b719067dd.png",
     pages: 423,
     category: "fiction",
+    readerMode: "text",
     pdfUrls: undefined // JPG URLs will be provided later
   },
   {
@@ -21,6 +22,7 @@ const books: Book[] = [
     coverImage: "/lovable-uploads/6e011b1d-9107-434d-9805-dd0a92d22ca8.png",
     pages: 387,
     category: "fiction",
+    readerMode: "pdf",
     pdfUrls: undefined // JPG URLs will be provided later
   },
   {

@@ -12,10 +12,11 @@ const BookPage = () => {
   const { id } = useParams<{ id: string }>();
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
-  const [viewMode, setViewMode] = useState<'text' | 'pdf'>('text');
-
   const book = books.find(b => b.id === id);
   
+  // Use the book's readerMode preference if available, otherwise default to 'text'
+  const [viewMode, setViewMode] = useState<'text' | 'pdf'>(book?.readerMode || 'text');
+
   useEffect(() => {
     // First set mounted to trigger enter animation
     setMounted(true);
