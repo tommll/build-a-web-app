@@ -70,7 +70,7 @@ const BookPage = () => {
         
         {hasPdfPages && (
           <div className="flex items-center bg-background/80 backdrop-blur-sm rounded-full p-1">
-            <Button
+            {viewMode === 'text' ? (<Button
               variant={viewMode === 'text' ? 'default' : 'ghost'}
               size="sm"
               className="rounded-full text-xs px-3 h-8"
@@ -78,8 +78,9 @@ const BookPage = () => {
             >
               <BookOpen size={16} className="mr-1" />
               Text
-            </Button>
-            <Button
+            </Button>)
+            :
+            (<Button
               variant={viewMode === 'pdf' ? 'default' : 'ghost'}
               size="sm"
               className="rounded-full text-xs px-3 h-8"
@@ -87,7 +88,7 @@ const BookPage = () => {
             >
               <FileText size={16} className="mr-1" />
               PDF
-            </Button>
+            </Button>)}
           </div>
         )}
       </div>
