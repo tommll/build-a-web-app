@@ -5,6 +5,7 @@ import { ArrowLeft, BookOpen, FileText } from 'lucide-react';
 import books from '@/data/books';
 import BookReader from '@/components/BookReader';
 import PdfReader from '@/components/PdfReader';
+import TextReader from '@/components/TextReader';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
@@ -105,7 +106,7 @@ const BookPage = () => {
           {viewMode === 'pdf' && hasPdfPages ? (
             <PdfReader book={book} />
           ) : (
-            <BookReader book={book} />
+            <TextReader book={book}/>
           )}
         </>
       )}
