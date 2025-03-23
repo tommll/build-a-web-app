@@ -19,4 +19,7 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  rollupOptions: {
+    external: ['public/computer_system_data/styles.css']
+  }
 }));
