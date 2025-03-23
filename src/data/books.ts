@@ -241,10 +241,10 @@ const books: Book[] = [
     ]
   },
   {
-    id: "starter-5",
-    title: "Cambridge Starter 5",
-    author: "Cambridge University Press",
-    description: "Cambridge Young Learners English Tests Starters 5 Student's Book: Examination Papers from the University of Cambridge ESOL Examinations",
+    id: "computer-system",
+    title: "Computer System: A Programmer's Perspective",
+    author: "Randal E. Bryant and David R. O'Hallaron",
+    description: "Computer System: A Programmer's Perspective",
     coverImage: "https://dtilc093idoxh0lh.public.blob.vercel-storage.com/Computer_system/computer_system_cover-d5zmcHcFkbGpSRtYPHqPyXzLVXrXrl.jpg",
     pages: 412,
     category: "fiction",
