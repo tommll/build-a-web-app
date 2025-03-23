@@ -245,7 +245,7 @@ const books: Book[] = [
     title: "Cambridge Starter 5",
     author: "Cambridge University Press",
     description: "Cambridge Young Learners English Tests Starters 5 Student's Book: Examination Papers from the University of Cambridge ESOL Examinations",
-    coverImage: "https://dtilc093idoxh0lh.public.blob.vercel-storage.com/Starter_5/Starters_5-1_1-11bdiOVJh7XfIAHANJnGEKKZ2k6ku7.jpg",
+    coverImage: "https://dtilc093idoxh0lh.public.blob.vercel-storage.com/Computer_system/computer_system_cover-d5zmcHcFkbGpSRtYPHqPyXzLVXrXrl.jpg",
     pages: 412,
     category: "fiction",
     readerMode: "text",
