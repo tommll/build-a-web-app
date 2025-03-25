@@ -10,9 +10,7 @@ interface TextReaderProps {
 
 const TextReader: React.FC<TextReaderProps> = ({ book }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(0);
-  const [htmlContent, setHtmlContent] = useState<string>('');
 
   useEffect(() => {
     // Set total pages based on htmlUrls length or book.pages
@@ -22,34 +20,6 @@ const TextReader: React.FC<TextReaderProps> = ({ book }) => {
       setTotalPages(book.pages || 1);
     }
   }, [book]);
-
-  useEffect(() => {
-    const loadHtmlContent = async () => {
-      setIsLoading(true);
-      
-      if (book.htmlUrls && book.htmlUrls.length > 0) {
-        try {
-          const response = await fetch(book.htmlUrls[currentPage - 1]);
-          if (response.ok) {
-            const html = await response.text();
-            setHtmlContent(html);
-          } else {
-            console.error('Failed to load HTML content');
-            setHtmlContent('');
-          }
-        } catch (error) {
-          console.error('Error loading HTML content:', error);
-          setHtmlContent('');
-        }
-      } else {
-        setHtmlContent('');
-      }
-      
-      setIsLoading(false);
-    };
-
-    loadHtmlContent();
-  }, [book.htmlUrls, currentPage]);
 
   const goToNextPage = () => {
     if (currentPage < totalPages) {
@@ -64,20 +34,8 @@ const TextReader: React.FC<TextReaderProps> = ({ book }) => {
   };
 
   const renderHtmlContent = () => {
-    if (!htmlContent) {
-      return (
-        <div className="flex flex-col items-center justify-center h-[80vh] p-6 text-center">
-          <BookOpen className="h-16 w-16 text-muted-foreground mb-4" />
-          <h3 className="text-xl font-medium mb-2">Content Not Available</h3>
-          <p className="text-muted-foreground mb-6">
-            The HTML content for this book is not available. Please check back later.
-          </p>
-        </div>
-      );
-    }
-
     return (
-      <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+      <div dangerouslySetInnerHTML={{ __html: book.htmlStrings[currentPage - 1] }} />
     );
   };
 
@@ -86,12 +44,6 @@ const TextReader: React.FC<TextReaderProps> = ({ book }) => {
       <div className="flex-1 flex justify-center items-center py-8 px-4">
         <div className="relative max-w-4xl w-full">
           <div className="relative bg-white rounded-sm mx-auto max-w-3xl shadow-lg overflow-hidden">
-            {isLoading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-sm z-10">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
-              </div>
-            )}
-            
             {renderHtmlContent()}
           </div>
 

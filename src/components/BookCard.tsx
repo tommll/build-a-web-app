@@ -14,6 +14,7 @@ export interface Book {
   readerMode?: 'text' | 'pdf'; // Default reader mode for this book
   pdfUrls?: string[]; // Array of URLs to jpg files representing PDF pages
   htmlUrls?: string[]; // Add this line
+  htmlStrings?: string[]; // Add this line
 }
 
 interface BookCardProps {
